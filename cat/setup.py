@@ -20,8 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'helloworld_publisher = cat.node.helloworld_publisher:main',
-            'helloworld_subscriber = cat.node.helloworld_subscriber:main'
+            'helloworld_publisher = node.helloworld_publisher:main',
+            'helloworld_subscriber = node.helloworld_subscriber:main'
         ],
     },
 )
