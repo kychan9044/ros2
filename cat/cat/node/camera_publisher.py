@@ -27,6 +27,7 @@ class CameraPublisher(Node):
         self.camera_publisher.publish(self.br.cv2_to_imgmsg(image)) 
 
     def take_pictures(self):
+        self.get_logger().info('Take picture')
         # Take compressed images and put into the queue.
         # 'jpeg', 'rgb'
         try:
@@ -41,6 +42,7 @@ class CameraPublisher(Node):
             self.get_logger().error('CAM: exiting take_pictures because of exception')
     
     def publish_images(self):
+        self.get_logger().info('Published message')
         # Loop reading from capture queue and send to ROS topic
         while True:
             if self.publisher_event.is_set():
