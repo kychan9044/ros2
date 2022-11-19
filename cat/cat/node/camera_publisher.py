@@ -13,9 +13,11 @@ class CameraPublisher(Node):
 
     def __init__(self):
         super().__init__('camera_publisher') 
+        self.get_logger().info('********init************')
         qos_profile = QoSProfile(depth=10) 
         self.camera_publisher = self.create_publisher(Image, 'camera', qos_profile)
         self.count = 0
+
         self.camera = picamera.PiCamera()
         # self.br = CvBridge()
         self.timer = self.create_timer(1, self.take_pictures)
