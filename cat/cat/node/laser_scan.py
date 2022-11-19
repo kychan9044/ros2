@@ -8,7 +8,7 @@ from sensor_msgs.msg import LaserScan
 class LaserScan(Node):
 
     def __init__(self):
-        super().__init__('minimal_subscriber')
+        super().__init__('laser_scan')
         self.subscription = self.create_subscription(
             LaserScan,
             'scan',
