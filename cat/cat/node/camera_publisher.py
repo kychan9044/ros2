@@ -17,14 +17,14 @@ class CameraPublisher(Node):
         self.camera_publisher = self.create_publisher(Image, 'camera', qos_profile)
         self.count = 0
         self.camera = picamera.PiCamera()
-        self.br = CvBridge()
+        # self.br = CvBridge()
         self.timer = self.create_timer(1, self.take_pictures)
         self.timer = self.create_timer(1, self.publish_images)
 
-    def timer_callback(self):
-        self.get_logger().info('Published message')
-        image = self.camera.capture()
-        self.camera_publisher.publish(self.br.cv2_to_imgmsg(image)) 
+    # def timer_callback(self):
+    #     self.get_logger().info('Published message')
+    #     image = self.camera.capture()
+    #     self.camera_publisher.publish(self.br.cv2_to_imgmsg(image)) 
 
     def take_pictures(self):
         self.get_logger().info('Take picture')
@@ -32,12 +32,7 @@ class CameraPublisher(Node):
         # 'jpeg', 'rgb'
         try:
             for capture in self.camera.capture_continuous(self.write_capture(self), format='jpeg'):
-                if self.capture_event.is_set():
-                    break
                 time.sleep(0.5)
-                # The exit flag could have been set while in the sleep
-                if self.capture_event.is_set():
-                    break
         except:
             self.get_logger().error('CAM: exiting take_pictures because of exception')
     
@@ -45,14 +40,10 @@ class CameraPublisher(Node):
         self.get_logger().info('Published message')
         # Loop reading from capture queue and send to ROS topic
         while True:
-            if self.publisher_event.is_set():
-                break
             try:
                 msg = self.capture_queue.get(block=True, timeout=2)
             except queue.Empty:
                 msg = None
-            if self.publisher_event.is_set():
-                break
             if msg != None:
                 self.get_logger().debug('CAM: sending frame. frame=%s'
                                     % (msg.header.frame_id) )
