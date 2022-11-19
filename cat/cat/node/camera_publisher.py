@@ -7,8 +7,6 @@ import picamera
 from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
 
-
-# Node 클래스 상속
 class CameraPublisher(Node): 
 
     def __init__(self):
@@ -20,29 +18,10 @@ class CameraPublisher(Node):
         self.camera = picamera.PiCamera()
         self.br = CvBridge()
 
-    def publish_helloworld_msg(self):
-        msg = String()
-        msg.data = 'Hello World: {0}'.format(self.count)
-        self.helloworld_publisher.publish(msg) 	# 퍼블리시
-        self.get_logger().info('Published message: {0}'.format(msg.data))
-        self.count += 1
-
     def timer_callback(self):
+        self.get_logger().info('Published message')
         image = self.camera.capture()
         self.camera_publisher.publish(self.br.cv2_to_imgmsg(image)) 
-    
-    # def take_pictures(self):
-    #     # Take compressed images and put into the queue.
-    #     # 'jpeg', 'rgb'
-    #     try:
-    #         for capture in self.camera.capture_continuous(self.write_capture(self), format='jpeg'):
-    #             if self.capture_event.is_set():
-    #                 break
-    #             # The exit flag could have been set while in the sleep
-    #             if self.capture_event.is_set():
-    #                 break
-    #     except:
-    #         self.get_logger().error('CAM: exiting take_pictures because of exception')
 
 
 def main(args=None):
