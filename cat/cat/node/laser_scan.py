@@ -1,97 +1,44 @@
+import rclpy
+from rclpy.node import Node
+from rclpy.qos import ReliabilityPolicy, QoSProfile
 
-#!/usr/bin/env python
-#################################################################################
-# Copyright 2018 ROBOTIS CO., LTD.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#################################################################################
-
-# Authors: Gilbert #
-
-import rospy
-import math
+from std_msgs.msg import String
 from sensor_msgs.msg import LaserScan
-from geometry_msgs.msg import Twist
 
-LINEAR_VEL = 0.22
-STOP_DISTANCE = 0.2
-LIDAR_ERROR = 0.05
-SAFE_STOP_DISTANCE = STOP_DISTANCE + LIDAR_ERROR
+class LaserScan(Node):
 
-class Obstacle():
     def __init__(self):
-        self._cmd_pub = rospy.Publisher('cmd_vel', Twist, queue_size=1)
-        self.obstacle()
-        
-    def get_scan(self):
-        scan = rospy.wait_for_message('scan', LaserScan)
-        scan_filter = []
-       
-        samples = len(scan.ranges)  # The number of samples is defined in 
-                                    # turtlebot3_<model>.gazebo.xacro file,
-                                    # the default is 360.
-        samples_view = 1            # 1 <= samples_view <= samples
-        
-        if samples_view > samples:
-            samples_view = samples
+        super().__init__('minimal_subscriber')
+        self.subscription = self.create_subscription(
+            LaserScan,
+            'scan',
+            self.listener_callback,
+            QoSProfile(depth=10, reliability=ReliabilityPolicy.BEST_EFFORT))
+        self.subscription  # prevent unused variable warning
 
-        if samples_view is 1:
-            scan_filter.append(scan.ranges[0])
+    def listener_callback(self, msg):
+        dist_back = format(msg.ranges[180], '.2f')
+        dist_left = format(msg.ranges[90], '.2f')
+        dist_right = format(msg.ranges[270], '.2f')
+        dist_head = format(msg.ranges[0], '.2f')
+        self.get_logger().info(f'{dist_back} {dist_left} {dist_right} {dist_head}')
 
-        else:
-            left_lidar_samples_ranges = -(samples_view//2 + samples_view % 2)
-            right_lidar_samples_ranges = samples_view//2
-            
-            left_lidar_samples = scan.ranges[left_lidar_samples_ranges:]
-            right_lidar_samples = scan.ranges[:right_lidar_samples_ranges]
-            scan_filter.extend(left_lidar_samples + right_lidar_samples)
 
-        for i in range(samples_view):
-            if scan_filter[i] == float('Inf'):
-                scan_filter[i] = 3.5
-            elif math.isnan(scan_filter[i]):
-                scan_filter[i] = 0
-        
-        return scan_filter
+def main(args=None):
+    rclpy.init(args=args)
 
-    def obstacle(self):
-        twist = Twist()
-        turtlebot_moving = True
+def main(args=None):
+    rclpy.init(args=args)
 
-        while not rospy.is_shutdown():
-            lidar_distances = self.get_scan()
-            min_distance = min(lidar_distances)
+    minimal_subscriber = LaserScan()
 
-            if min_distance < SAFE_STOP_DISTANCE:
-                if turtlebot_moving:
-                    twist.linear.x = 0.0
-                    twist.angular.z = 0.0
-                    self._cmd_pub.publish(twist)
-                    turtlebot_moving = False
-                    rospy.loginfo('Stop!')
-            else:
-                twist.linear.x = LINEAR_VEL
-                twist.angular.z = 0.0
-                self._cmd_pub.publish(twist)
-                turtlebot_moving = True
-                rospy.loginfo('Distance of the obstacle : %f', min_distance)
+    rclpy.spin(minimal_subscriber)
 
-def main():
-    rospy.init_node('turtlebot3_obstacle')
-    try:
-        obstacle = Obstacle()
-    except rospy.ROSInterruptException:
-        pass
+    # Destroy the node explicitly
+    # (optional - otherwise it will be done automatically
+    # when the garbage collector destroys the node object)
+    minimal_subscriber.destroy_node()
+    rclpy.shutdown()
 
 if __name__ == '__main__':
     main()
