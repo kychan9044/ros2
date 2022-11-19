@@ -21,7 +21,9 @@ setup(
     entry_points={
         'console_scripts': [
             'helloworld_publisher = cat.node.helloworld_publisher:main',
-            'helloworld_subscriber = cat.node.helloworld_subscriber:main'
+            'helloworld_subscriber = cat.node.helloworld_subscriber:main',
+            'camera_publisher = cat.node.camera_subscriber:main',
+            'camera_subscriber = cat.node.camera_subscriber:main'
         ],
     },
 )
