@@ -1,9 +1,12 @@
 import rclpy 
-from rclpy.node import Node # Node 클래스
-from rclpy.qos import QoSProfile # 퍼블리셔의 QoS 설정
-from std_msgs.msg import String,Image # 퍼블리시하는 메시지 타입 - String 메시지 인터페이스
+from rclpy.node import Node 
+from rclpy.qos import QoSProfile 
+from std_msgs.msg import String
 import cv2
 import picamera
+from cv_bridge import CvBridge
+from sensor_msgs.msg import Image
+
 
 # Node 클래스 상속
 class CameraPublisher(Node): 
