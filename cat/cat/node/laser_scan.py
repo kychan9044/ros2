@@ -5,7 +5,7 @@ from rclpy.qos import ReliabilityPolicy, QoSProfile
 from std_msgs.msg import String
 from sensor_msgs.msg import LaserScan
 
-class LaserScan(Node):
+class LaserSubscriber(Node):
 
     def __init__(self):
         super().__init__('laser_scan')
@@ -26,7 +26,7 @@ class LaserScan(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    minimal_subscriber = LaserScan()
+    minimal_subscriber = LaserSubscriber()
 
     rclpy.spin(minimal_subscriber)
 
