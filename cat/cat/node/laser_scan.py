@@ -23,10 +23,6 @@ class LaserScan(Node):
         dist_head = format(msg.ranges[0], '.2f')
         self.get_logger().info(f'{dist_back} {dist_left} {dist_right} {dist_head}')
 
-
-def main(args=None):
-    rclpy.init(args=args)
-
 def main(args=None):
     rclpy.init(args=args)
 
