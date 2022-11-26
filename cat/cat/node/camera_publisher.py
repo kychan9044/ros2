@@ -23,10 +23,10 @@ class CameraPublisher(Node):
 
         # self.camera = picamera.PiCamera()
         self.br = CvBridge()
-        threading.Timer(1, self.take_pictures_with_shell,args=[self]).start()
+        threading.Timer(1, self.take_pictures_with_shell).start()
         # self.timer = self.create_timer(1, self.take_pictures_with_shell)
         time.sleep(1)
-        threading.Timer(1, self.publish_images,args=[self]).start()
+        threading.Timer(1, self.publish_images).start()
         # self.timer = self.create_timer(1, self.publish_images)
 
     def take_pictures(self):
