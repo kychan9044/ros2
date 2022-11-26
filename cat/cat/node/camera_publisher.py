@@ -8,6 +8,7 @@ from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
 import time
 import queue
+import os
 
 class CameraPublisher(Node): 
 
@@ -18,38 +19,37 @@ class CameraPublisher(Node):
         self.camera_publisher = self.create_publisher(Image, 'camera', qos_profile)
         self.count = 0
 
-        self.camera = picamera.PiCamera()
-        # self.br = CvBridge()
+        # self.camera = picamera.PiCamera()
+        self.br = CvBridge()
         self.timer = self.create_timer(1, self.take_pictures)
+        time.sleep(1)
         self.timer = self.create_timer(1, self.publish_images)
-
-    # def timer_callback(self):
-    #     self.get_logger().info('Published message')
-    #     image = self.camera.capture()
-    #     self.camera_publisher.publish(self.br.cv2_to_imgmsg(image)) 
 
     def take_pictures(self):
         self.get_logger().info('Take picture')
-        # Take compressed images and put into the queue.
-        # 'jpeg', 'rgb'
         try:
             for capture in self.camera.capture_continuous(self.write_capture(self), format='jpeg'):
                 time.sleep(0.5)
         except:
             self.get_logger().error('CAM: exiting take_pictures because of exception')
     
+    def take_pictures_with_shell(self):
+        os.system("raspistill -v -o camer.jpg")
+    
     def publish_images(self):
         self.get_logger().info('Published message')
         # Loop reading from capture queue and send to ROS topic
         while True:
-            try:
-                msg = self.capture_queue.get(block=True, timeout=2)
-            except queue.Empty:
-                msg = None
-            if msg != None:
-                self.get_logger().debug('CAM: sending frame. frame=%s'
-                                    % (msg.header.frame_id) )
-                self.publisher.publish(msg)
+            # try:
+            #     msg = self.capture_queue.get(block=True, timeout=2)
+            # except queue.Empty:
+            #     msg = None
+            # if msg != None:
+            #     self.get_logger().debug('CAM: sending frame. frame=%s'
+            #                         % (msg.header.frame_id) )
+            #     self.publisher.publish(msg)
+            img = cv2.imread('camera.jpg', cv2.IMREAD_COLOR)
+            self.camera_publisher.publish(self.br.cv_to_imgmsg(img, encoding="passthrough"))
 
 
 def main(args=None):
