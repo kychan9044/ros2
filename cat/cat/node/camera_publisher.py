@@ -27,7 +27,7 @@ class CameraPublisher(Node):
         time.sleep(1)
         self.timer = self.create_timer(1, self.publish_images)
         rospack = rospkg.RosPack()
-        self.image_path = rospack.get_path('my_package_name') + '/images/'
+        self.image_path = rospack.get_path('cat') + '/images/'
 
     def take_pictures(self):
         self.get_logger().info('Take picture')
