@@ -9,7 +9,6 @@ from sensor_msgs.msg import Image
 import time
 import queue
 import os
-import rospkg
 
 
 class CameraPublisher(Node): 
@@ -26,8 +25,6 @@ class CameraPublisher(Node):
         self.timer = self.create_timer(1, self.take_pictures_with_shell)
         time.sleep(1)
         self.timer = self.create_timer(1, self.publish_images)
-        rospack = rospkg.RosPack()
-        # self.image_path = rospack.get_path('cat') + '/images/'
 
     def take_pictures(self):
         self.get_logger().info('Take picture')
@@ -53,7 +50,7 @@ class CameraPublisher(Node):
             #                         % (msg.header.frame_id) )
             #     self.publisher.publish(msg)
             img = cv2.imread('camera.jpg')
-            self.camera_publisher.publish(self.br.cv2_to_imgmsg(img, encoding="brg8"))
+            self.camera_publisher.publish(self.br.cv2_to_imgmsg(img, encoding="bgr8"))
 
 
 def main(args=None):
