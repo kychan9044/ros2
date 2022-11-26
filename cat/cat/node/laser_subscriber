@@ -9,7 +9,7 @@ class LaserSubscriber(Node):
     def __init__(self):
         super().__init__('laser_subscrbier')
         self.config_dir = os.path.join(os.path.dirname(__file__))
-        self.config_dir = self.config_dir.replace('nodes', 'config')
+        self.config_dir = self.config_dir.replace('node', 'config')
         self.laser_scan_data =[]
         self.comments=[]
         self.Subscriber()

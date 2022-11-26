@@ -11,7 +11,7 @@ class Follower(Node):
     def __init__(self):
         super().__init__('follower')
         self.config_dir = os.path.join(os.path.dirname(__file__))
-        self.config_dir = self.config_dir.replace('nodes', 'config')
+        self.config_dir = self.config_dir.replace('node', 'config')
         qos_profile = QoSProfile(depth=10) 
         self.pub = self.create_publisher(Twist, 'cmd_vel', qos_profile)
         self.clf = pickle.load(open(self.config_dir + '/clf', "rb"))
