@@ -9,6 +9,7 @@ from sensor_msgs.msg import Image
 import time
 import queue
 import os
+import threading
 
 
 class CameraPublisher(Node): 
@@ -22,9 +23,11 @@ class CameraPublisher(Node):
 
         # self.camera = picamera.PiCamera()
         self.br = CvBridge()
-        self.timer = self.create_timer(1, self.take_pictures_with_shell)
+        threading.Timer(1, self.take_pictures_with_shell,args=self).start()
+        # self.timer = self.create_timer(1, self.take_pictures_with_shell)
         time.sleep(1)
-        self.timer = self.create_timer(1, self.publish_images)
+        threading.Timer(1, self.publish_images,args=self).start()
+        # self.timer = self.create_timer(1, self.publish_images)
 
     def take_pictures(self):
         self.get_logger().info('Take picture')
