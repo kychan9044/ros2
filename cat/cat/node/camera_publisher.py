@@ -35,6 +35,7 @@ class CameraPublisher(Node):
     
     def take_pictures_with_shell(self):
         while True:
+            self.get_logger().info('******************Take picture******************')
             os.system("raspistill -v -o camera.jpg")
             time.sleep(1)
     
