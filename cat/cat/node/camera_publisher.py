@@ -48,8 +48,8 @@ class CameraPublisher(Node):
             #     self.get_logger().debug('CAM: sending frame. frame=%s'
             #                         % (msg.header.frame_id) )
             #     self.publisher.publish(msg)
-            img = cv2.imread('camera.jpg', cv2.IMREAD_COLOR)
-            self.camera_publisher.publish(self.br.cv2_to_imgmsg(img, encoding="passthrough"))
+            img = cv2.imread('camera.jpg')
+            self.camera_publisher.publish(self.br.cv2_to_imgmsg(img, encoding="brg8"))
 
 
 def main(args=None):
