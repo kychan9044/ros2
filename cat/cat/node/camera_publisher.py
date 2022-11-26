@@ -9,7 +9,6 @@ from sensor_msgs.msg import Image
 import time
 import queue
 import os
-import threading
 
 
 class CameraPublisher(Node): 
@@ -23,11 +22,8 @@ class CameraPublisher(Node):
 
         # self.camera = picamera.PiCamera()
         self.br = CvBridge()
-        threading.Timer(1, self.take_pictures_with_shell).start()
-        # self.timer = self.create_timer(1, self.take_pictures_with_shell)
-        time.sleep(1)
-        threading.Timer(1, self.publish_images).start()
-        # self.timer = self.create_timer(1, self.publish_images)
+        self.timer = self.create_timer(1, self.take_pictures_with_shell)
+        self.timer = self.create_timer(1, self.publish_images)
 
     def take_pictures(self):
         self.get_logger().info('Take picture')
@@ -38,12 +34,14 @@ class CameraPublisher(Node):
             self.get_logger().error('CAM: exiting take_pictures because of exception')
     
     def take_pictures_with_shell(self):
-        os.system("raspistill -v -o camera.jpg")
+        while True:
+            os.system("raspistill -v -o camera.jpg")
+            time.sleep(1)
     
     def publish_images(self):
-        self.get_logger().info('Published message')
         # Loop reading from capture queue and send to ROS topic
         while True:
+            self.get_logger().info('Published message')
             # try:
             #     msg = self.capture_queue.get(block=True, timeout=2)
             # except queue.Empty:
@@ -54,6 +52,7 @@ class CameraPublisher(Node):
             #     self.publisher.publish(msg)
             img = cv2.imread('camera.jpg')
             self.camera_publisher.publish(self.br.cv2_to_imgmsg(img, encoding="bgr8"))
+            time.sleep(1)
 
 
 def main(args=None):
