@@ -23,6 +23,7 @@ setup(
             'helloworld_publisher = cat.node.helloworld_publisher:main',
             'helloworld_subscriber = cat.node.helloworld_subscriber:main',
             'camera_publisher = cat.node.camera_publisher:main',
+            'camera_picture = cat.node.camera_picture:main',
             'camera_subscriber = cat.node.camera_subscriber:main',
             'laser_scan = cat.node.laser_scan:main' 
         ],
