@@ -27,7 +27,7 @@ class CameraPublisher(Node):
         time.sleep(1)
         self.timer = self.create_timer(1, self.publish_images)
         rospack = rospkg.RosPack()
-        self.image_path = rospack.get_path('cat') + '/images/'
+        # self.image_path = rospack.get_path('cat') + '/images/'
 
     def take_pictures(self):
         self.get_logger().info('Take picture')
@@ -38,7 +38,7 @@ class CameraPublisher(Node):
             self.get_logger().error('CAM: exiting take_pictures because of exception')
     
     def take_pictures_with_shell(self):
-        os.system("raspistill -v -o "+ self.image_path +"camer.jpg")
+        os.system("raspistill -v -o camera.jpg")
     
     def publish_images(self):
         self.get_logger().info('Published message')
@@ -52,7 +52,7 @@ class CameraPublisher(Node):
             #     self.get_logger().debug('CAM: sending frame. frame=%s'
             #                         % (msg.header.frame_id) )
             #     self.publisher.publish(msg)
-            img = cv2.imread(self.image_path + 'camera.jpg')
+            img = cv2.imread('camera.jpg')
             self.camera_publisher.publish(self.br.cv2_to_imgmsg(img, encoding="brg8"))
 
 
