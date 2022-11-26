@@ -49,7 +49,7 @@ class CameraPublisher(Node):
             #                         % (msg.header.frame_id) )
             #     self.publisher.publish(msg)
             img = cv2.imread('camera.jpg', cv2.IMREAD_COLOR)
-            self.camera_publisher.publish(self.br.cv_to_imgmsg(img, encoding="passthrough"))
+            self.camera_publisher.publish(self.br.cv2_to_imgmsg(img, encoding="passthrough"))
 
 
 def main(args=None):
