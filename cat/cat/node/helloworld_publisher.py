@@ -25,7 +25,7 @@ def main(args=None):
     rclpy.init(args=args)
     node = HelloworldPublisher()
     try:
-        rclpy.spin(node) # 생성한 노드를 spin시켜 지정된 콜백함수가 실행
+        rclpy.spin(node) 
     except KeyboardInterrupt: 
         node.get_logger().info('Keyboard Interrupt (SIGINT)')
     finally:
