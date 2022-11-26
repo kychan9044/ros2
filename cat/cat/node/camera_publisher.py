@@ -22,8 +22,8 @@ class CameraPublisher(Node):
 
         # self.camera = picamera.PiCamera()
         self.br = CvBridge()
-        self.timer = self.create_timer(1, self.take_pictures_with_shell)
-        self.timer = self.create_timer(1, self.publish_images)
+        self.picture_timer = self.create_timer(1, self.take_pictures_with_shell)
+        self.publish_timer = self.create_timer(1, self.publish_images)
 
     def take_pictures(self):
         self.get_logger().info('Take picture')
@@ -39,9 +39,8 @@ class CameraPublisher(Node):
             time.sleep(1)
     
     def publish_images(self):
-        # Loop reading from capture queue and send to ROS topic
         while True:
-            self.get_logger().info('Published message')
+            self.get_logger().info('***********Published message***********')
             # try:
             #     msg = self.capture_queue.get(block=True, timeout=2)
             # except queue.Empty:
