@@ -14,6 +14,7 @@ class Follower(Node):
         self.config_dir = self.config_dir.replace('node', 'config')
         qos_profile = QoSProfile(depth=10) 
         self.pub = self.create_publisher(Twist, 'cmd_vel', qos_profile)
+        print(self.config_dir)
         self.clf = pickle.load(open(self.config_dir + '/clf', "rb"))
         self.clf2 = pickle.load(open(self.config_dir + '/clf2', "rb"))
         self.labels = {'30_0':0, '30_l':1, '30_r':2, '45_0':3, '45_l':4, '45_r':5,'15_0':6, 'empty':7}
