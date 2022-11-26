@@ -3,6 +3,7 @@ from rclpy.node import Node
 import os
 import pickle
 from sensor_msgs.msg import LaserScan
+from rclpy.qos import QoSProfile
 from geometry_msgs.msg import Twist
 import numpy as np
 
@@ -11,7 +12,8 @@ class Follower(Node):
         super().__init__('follower')
         self.config_dir = os.path.join(os.path.dirname(__file__))
         self.config_dir = self.config_dir.replace('nodes', 'config')
-        self.pub = rclpy.Publisher('cmd_vel', Twist, queue_size = 1)
+        qos_profile = QoSProfile(depth=10) 
+        self.pub = self.create_publisher(Twist, 'cmd_vel', qos_profile)
         self.clf = pickle.load(open(self.config_dir + '/clf', "rb"))
         self.clf2 = pickle.load(open(self.config_dir + '/clf2', "rb"))
         self.labels = {'30_0':0, '30_l':1, '30_r':2, '45_0':3, '45_l':4, '45_r':5,'15_0':6, 'empty':7}
