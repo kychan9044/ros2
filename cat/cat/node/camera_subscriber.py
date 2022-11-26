@@ -25,8 +25,6 @@ class CameraSubscriber(Node):
         # Convert ROS Image message to OpenCV image 
         current_frame = self.br.imgmsg_to_cv2(data)
         # Display image 
-        cv2.imshow("camera", current_frame) 
-        cv2.waitKey(1)
         cv2.imwrite("img.jpg", current_frame)
 
     def subscribe_topic_message(self, msg):
