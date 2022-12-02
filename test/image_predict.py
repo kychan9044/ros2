@@ -22,6 +22,7 @@ cfg.MODEL.ROI_HEADS.NUM_CLASSES = 3  # only has one class (mount).
 # trainer.resume_or_load(resume=False)
 # trainer.train()
 
+cfg.MODEL.DEVICE='cpu'
 cfg.MODEL.WEIGHTS = "model_final.pth"  # path to the model we just trained
 cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7   # set a custom testing threshold
 predictor = DefaultPredictor(cfg)
