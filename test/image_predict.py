@@ -4,6 +4,7 @@ from detectron2 import model_zoo
 import cv2
 from detectron2.engine import DefaultPredictor
 from detectron2.utils.visualizer import Visualizer
+from detectron2.data import MetadataCatalog, DatasetCatalog
 
 cfg = get_cfg()
 cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
