@@ -24,7 +24,7 @@ predictor = DefaultPredictor(cfg)
 
 # 테스트하기 (학습되지 않은 이미지에서 결과 확인)
 # 학습한 사물과 유사한 것이 있으면 인식됨 (학습결과가 좋지 않으면 위의 학습 과정에서 cfg.SOLVER.MAX_ITER = 300 을 300 이상으로 올리면 효과가 더 좋아짐)
-im = cv2.imread('MyDrive/MyDrive/val/image3.jpeg')
+im = cv2.imread('./images/image3.jpeg')
 outputs = predictor(im)
 v = Visualizer(im[:,:,::-1], MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=1.2)
 out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
