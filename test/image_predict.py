@@ -34,7 +34,8 @@ def detect_gesture():
 
     im = cv2.imread('./images/outcome/outcome18.jpg')
     outputs = predictor(im)
-    v = Visualizer(im[:,:,::-1], MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=1.2)
+    # v = Visualizer(im[:,:,::-1], MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=1.2)
+    v = Visualizer(im[:,:,::-1], metadata=my_metadata, scale=1.2)
     out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
     cv2.imshow("image", out.get_image()[:, :, ::-1])
     cv2.waitKey(0)
