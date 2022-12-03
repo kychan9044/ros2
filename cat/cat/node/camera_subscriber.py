@@ -16,7 +16,7 @@ class CameraSubscriber(Node):
         self.count = 0
 
     def listener_callback(self, data):
-        self.camera_subscriber.shutdown()
+        self.camera_subscriber.destory()
         self.get_logger().info('Received message')
         self.count+=1
         # Convert ROS Image message to OpenCV image 
