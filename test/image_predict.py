@@ -13,7 +13,7 @@ def detect_gesture():
     # if dataset_name in MetadataCatalog.list():
     #     MetadataCatalog.remove(dataset_name)
     cfg = get_cfg()
-    # cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
+    cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
     # cfg.DATASETS.TRAIN = ("mdata1_train",)
     cfg.DATASETS.TEST = ("mdata1_val",)
     test_metadata = MetadataCatalog.get("mdata1_val").set(thing_classes=["palm", "punch", "one", "two"])
