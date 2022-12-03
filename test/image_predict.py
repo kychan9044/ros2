@@ -28,7 +28,7 @@ def detect_gesture():
     # trainer.resume_or_load(resume=False)
     # trainer.train()
     MetadataCatalog.get("mdata1_train").set(thing_classes=["palm", "punch", "one", "two"])
-    my_metadata = MetadataCatalog.get("mdata1_train")
+    MetadataCatalog.get("mdata1_val").set(thing_classes=["palm", "punch", "one", "two"])
 
     cfg.MODEL.DEVICE='cpu'
     cfg.MODEL.WEIGHTS = "model_final.pth"  # path to the model we just trained
