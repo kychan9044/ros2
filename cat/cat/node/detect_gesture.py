@@ -8,7 +8,7 @@ import cv2
 
 cfg = get_cfg()
 cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
-cfg.DATASETS.TRAIN = ("mdata4_train",)
+cfg.DATASETS.TRAIN = ("mdata16_train",)
 cfg.DATASETS.TEST = ()
 cfg.DATALOADER.NUM_WORKERS = 2
 cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")  # Let training initialize from model zoo
