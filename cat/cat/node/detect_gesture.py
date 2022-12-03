@@ -19,7 +19,7 @@ cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128   # faster, and good enough for t
 cfg.MODEL.ROI_HEADS.NUM_CLASSES = 3  # only has one class (mount).
 
 cfg.MODEL.DEVICE='cpu'
-cfg.MODEL.WEIGHTS = "./train/model_final.pth"  # path to the model we just trained
+cfg.MODEL.WEIGHTS = "share/train/model_final.pth"  # path to the model we just trained
 cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7   # set a custom testing threshold
 predictor = DefaultPredictor(cfg)
 
