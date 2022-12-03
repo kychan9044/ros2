@@ -36,6 +36,7 @@ class CameraPublisher(Node):
         #     self.publisher.publish(msg)
         img = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L) # CAP_V4L 또는 CAP_V4L2 설정 (리눅스 환경에서의 video)
         # img = cv2.imread('camera.jpg')
+        print(img)
         self.camera_publisher.publish(self.br.cv2_to_imgmsg(img, encoding="bgr8"))
 
 def main(args=None):
