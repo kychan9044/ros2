@@ -23,7 +23,7 @@ def detect_gesture():
     # cfg.SOLVER.MAX_ITER = 1000    # 300 iterations seems good enough for this toy dataset; you will need to train longer for a practical dataset
     # cfg.SOLVER.STEPS = []        # do not decay learning rate
     # cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128   # faster, and good enough for this toy dataset (default: 512)
-    cfg.MODEL.ROI_HEADS.NUM_CLASSES = 4  # only has one class (mount).
+    # cfg.MODEL.ROI_HEADS.NUM_CLASSES = 4  # only has one class (mount).
 
     # os.makedirs(cfg.OUTPUT_DIR, exist_ok=True)
     # trainer = DefaultTrainer(cfg) 
@@ -33,7 +33,7 @@ def detect_gesture():
 
     cfg.MODEL.DEVICE='cpu'
     cfg.MODEL.WEIGHTS = "model_final.pth"  # path to the model we just trained
-    # cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7   # set a custom testing threshold
+    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7   # set a custom testing threshold
     predictor = DefaultPredictor(cfg)
 
     im = cv2.imread('./images/outcome/outcome16.jpg')
