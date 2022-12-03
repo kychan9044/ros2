@@ -5,7 +5,7 @@ from std_msgs.msg import String, Bool
 from sensor_msgs.msg import Image
 import cv2
 from cv_bridge import CvBridge
-from cat.node.detect_gesture import detect_gesture
+from cat.node.detect_gesture import Gesture
 
 class CameraSubscriber(Node):
 
@@ -20,6 +20,7 @@ class CameraSubscriber(Node):
         self.camera_flag_publisher = self.create_publisher(String, 'camera_flag', qos_profile)
         self.br = CvBridge()
         self.count = 0
+        self.gesture = Gesture()
 
     def listener_callback(self, data):
         msg = String()
@@ -29,7 +30,7 @@ class CameraSubscriber(Node):
         self.count+=1
         # Convert ROS Image message to OpenCV image 
         current_frame = self.br.imgmsg_to_cv2(data)
-        detect_gesture(current_frame,self.count)
+        self.gesture.detect_gesture(current_frame,self.count)
         # Display image 
         print('**************Finish detect****************')
         cv2.imwrite("img"+str(self.count)+".jpg", current_frame)
