@@ -5,6 +5,7 @@ from std_msgs.msg import String
 from sensor_msgs.msg import Image
 import cv2
 from cv_bridge import CvBridge
+from cat.node.detect_gesture import detect_gesture
 
 from detectron2.engine import DefaultTrainer
 from detectron2.config import get_cfg
