@@ -7,11 +7,6 @@ from detectron2.utils.visualizer import Visualizer
 from detectron2.data import MetadataCatalog, DatasetCatalog
 
 def detect_gesture():
-    # dataset_name = 'mdata1_train'
-    # if dataset_name in DatasetCatalog.list():
-    #     DatasetCatalog.remove(dataset_name)
-    # if dataset_name in MetadataCatalog.list():
-    #     MetadataCatalog.remove(dataset_name)
     cfg = get_cfg()
     cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
     # cfg.DATASETS.TRAIN = ("mdata1_train",)
@@ -37,7 +32,7 @@ def detect_gesture():
     cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7   # set a custom testing threshold
     predictor = DefaultPredictor(cfg)
 
-    im = cv2.imread('./images/outcome/outcome16.jpg')
+    im = cv2.imread('./images/outcome/outcome17.jpg')
     outputs = predictor(im)
     # v = Visualizer(im[:,:,::-1], MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=1.2)
     v = Visualizer(im[:,:,::-1], metadata=test_metadata, scale=1.2)
