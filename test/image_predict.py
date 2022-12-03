@@ -7,6 +7,9 @@ from detectron2.utils.visualizer import Visualizer
 from detectron2.data import MetadataCatalog, DatasetCatalog
 
 def detect_gesture():
+    dataset_name = 'mdata1_val'
+    if dataset_name in DatasetCatalog.list():
+        DatasetCatalog.remove(dataset_name)
     cfg = get_cfg()
     cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
     cfg.DATASETS.TRAIN = ("mdata1_train",)
