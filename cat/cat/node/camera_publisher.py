@@ -15,7 +15,7 @@ class CameraPublisher(Node):
     def __init__(self):
         super().__init__('camera_publisher') 
         self.get_logger().info('********init************')
-        self.flag = True
+        self.flag = "Enable"
         qos_profile = QoSProfile(depth=10) 
         self.camera_publisher = self.create_publisher(Image, 'camera_data', qos_profile)
         self.camera_flag_subscriber = self.create_subscription(
@@ -33,7 +33,7 @@ class CameraPublisher(Node):
         self.publish_timer = self.create_timer(3, self.publish_images)
     
     def publish_images(self):
-        if not self.flag=="Disable":
+        if self.flag == "Disable":
             return
 
         self.get_logger().info('***********Published image***********')
