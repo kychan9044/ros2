@@ -31,6 +31,7 @@ class CameraSubscriber(Node):
         current_frame = self.br.imgmsg_to_cv2(data)
         detect_gesture(current_frame,self.count)
         # Display image 
+        print('**************Finish detect****************')
         cv2.imwrite("img"+str(self.count)+".jpg", current_frame)
         # cv2.imshow("img"+str(self.count),current_frame)
         # cv2.waitKey(0)
