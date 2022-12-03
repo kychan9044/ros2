@@ -13,7 +13,7 @@ def detect_gesture():
     # if dataset_name in MetadataCatalog.list():
     #     MetadataCatalog.remove(dataset_name)
     cfg = get_cfg()
-    cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
+    # cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
     # cfg.DATASETS.TRAIN = ("mdata1_train",)
     # cfg.DATASETS.TEST = ()
     # cfg.DATALOADER.NUM_WORKERS = 2
@@ -33,7 +33,7 @@ def detect_gesture():
 
     cfg.MODEL.DEVICE='cpu'
     cfg.MODEL.WEIGHTS = "model_final.pth"  # path to the model we just trained
-    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5   # set a custom testing threshold
+    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7   # set a custom testing threshold
     predictor = DefaultPredictor(cfg)
 
     im = cv2.imread('./images/outcome/outcome16.jpg')
