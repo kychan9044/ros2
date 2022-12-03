@@ -33,7 +33,7 @@ class Go(Node):
         twist.linear.x = 0.0; twist.linear.y = 0.0; twist.linear.z = 0.0
         twist.angular.x = 0.0; twist.angular.y = 0.0; twist.angular.z = 0.0
         
-        if data.data == "finger_1": # 우회전
+        if data.data == "palm": # 우회전
             twist.linear.x = 0.2
             twist.angular.z = 0.3
             self.pub.publish(twist)
@@ -45,7 +45,7 @@ class Go(Node):
             self.pub.publish(twist)
             
 
-        elif data.data == "finger_2": # 직진
+        elif data.data == "punch": # 직진
             twist.linear.x = 0.2
             twist.angular.z = 0.0
             self.pub.publish(twist)
@@ -58,7 +58,7 @@ class Go(Node):
 
 
 
-        elif data.data == "finger_3": # 좌회전
+        elif data.data == "one": # 좌회전
             twist.linear.x = 0.2
             twist.angular.z = -0.3
             self.pub.publish(twist)
