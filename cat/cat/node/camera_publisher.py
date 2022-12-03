@@ -19,7 +19,10 @@ class CameraPublisher(Node):
         self.camera_publisher = self.create_publisher(Image, 'camera', qos_profile)
         self.count = 0
 
-        # self.camera = picamera.PiCamera()
+        self.cam = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)
+        if self.cam.isOpened():
+            self.get_logger().info("Camera open failed!")
+            raise Exception("Camera open failed!")
         self.br = CvBridge()
         self.publish_timer = self.create_timer(1, self.publish_images)
     
@@ -34,13 +37,13 @@ class CameraPublisher(Node):
         #     self.get_logger().debug('CAM: sending frame. frame=%s'
         #                         % (msg.header.frame_id) )
         #     self.publisher.publish(msg)
-        img = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L) # CAP_V4L 또는 CAP_V4L2 설정 (리눅스 환경에서의 video)
         # img = cv2.imread('camera.jpg')
-        if img == None:
+        ret, frame = self.cam.read()
+        if frame == None:
             self.get_logger().info('Invalid Image')
         else:
-            print((type(img),img))
-            self.camera_publisher.publish(self.br.cv2_to_imgmsg(img, encoding="bgr8"))
+            print((type(frame),frame))
+            self.camera_publisher.publish(self.br.cv2_to_imgmsg(frame, encoding="bgr8"))
 
 def main(args=None):
     rclpy.init(args=args)
