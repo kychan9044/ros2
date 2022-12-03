@@ -39,8 +39,8 @@ class CameraPublisher(Node):
         #     self.publisher.publish(msg)
         # img = cv2.imread('camera.jpg')
         ret, frame = self.cam.read()
-        if frame == None:
-            self.get_logger().info('Invalid Image')
+        if not ret:
+            self.get_logger().info('Image read failed!')
         else:
             print((type(frame),frame))
             self.camera_publisher.publish(self.br.cv2_to_imgmsg(frame, encoding="bgr8"))
