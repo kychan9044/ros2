@@ -43,6 +43,7 @@ def main(args=None):
     except KeyboardInterrupt: 
         node.get_logger().info('Keyboard Interrupt (SIGINT)')
     finally:
+        node.cam.release()
         node.destroy_node()
         rclpy.shutdown()
 
