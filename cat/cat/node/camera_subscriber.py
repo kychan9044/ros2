@@ -27,7 +27,7 @@ class CameraSubscriber(Node):
         detect_gesture(current_frame)
         # Display image 
         # cv2.imwrite("img.jpg", current_frame)
-        # cv2.imshow("img",current_frame)
+        cv2.imshow("img",current_frame)
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
 
