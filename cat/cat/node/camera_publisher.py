@@ -19,7 +19,7 @@ class CameraPublisher(Node):
         self.camera_publisher = self.create_publisher(Image, 'camera', qos_profile)
         self.count = 0
 
-        self.cam = cv2.VideoCapture('/dev/video1', cv2.CAP_V4L)
+        self.cam = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)
         if not self.cam.isOpened():
             self.get_logger().info("Camera open failed!")
             raise Exception("Camera open failed!")
@@ -46,7 +46,6 @@ def main(args=None):
         node.cam.release()
         node.destroy_node()
         rclpy.shutdown()
-
 
 if __name__ == '__main__':
     main()
