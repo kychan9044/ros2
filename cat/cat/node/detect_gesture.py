@@ -29,7 +29,7 @@ class Gesture():
 
     def detect_gesture(self,img,id):
         outputs = self.predictor(img)
-        v = Visualizer(img[:,:,::-1], MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=1.2)
+        v = Visualizer(img[:,:,::-1], MetadataCatalog.get(self.cfg.DATASETS.TRAIN[0]), scale=1.2)
         out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
         cv2.imwrite("outcome"+str(id)+".jpg", out.get_image()[:, :, ::-1])
         # cv2.imshow("image", out.get_image()[:, :, ::-1])
