@@ -1,7 +1,7 @@
 import rclpy 
 from rclpy.node import Node 
 from rclpy.qos import QoSProfile 
-from std_msgs.msg import String, Bool
+from std_msgs.msg import String
 import cv2
 # import picamera
 from cv_bridge import CvBridge
@@ -19,7 +19,7 @@ class CameraPublisher(Node):
         qos_profile = QoSProfile(depth=10) 
         self.camera_publisher = self.create_publisher(Image, 'camera_data', qos_profile)
         self.camera_flag_subscriber = self.create_subscription(
-            Bool,
+            String,
             'camera_flag',
             self.switch_camera_flag,
             qos_profile)
@@ -33,7 +33,7 @@ class CameraPublisher(Node):
         self.publish_timer = self.create_timer(3, self.publish_images)
     
     def publish_images(self):
-        if not self.flag:
+        if not self.flag=="Disable":
             return
 
         self.get_logger().info('***********Published image***********')
@@ -45,7 +45,6 @@ class CameraPublisher(Node):
             self.camera_publisher.publish(self.br.cv2_to_imgmsg(frame, encoding="bgr8"))
 
     def switch_camera_flag(self, data):
-        self.get_logger().info('flag'+str(data))
         self.flag = data
 
 def main(args=None):
