@@ -7,6 +7,9 @@ from detectron2.utils.visualizer import Visualizer
 from detectron2.data import MetadataCatalog, DatasetCatalog
 
 def detect_gesture():
+    dataset_name = 'mdata1_train'
+    if dataset_name in DatasetCatalog.list():
+        DatasetCatalog.remove(dataset_name)
     dataset_name = 'mdata1_val'
     if dataset_name in DatasetCatalog.list():
         DatasetCatalog.remove(dataset_name)
