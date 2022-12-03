@@ -28,6 +28,7 @@ class Go(Node):
             qos_profile)
     
     def move(self,data):
+        self.get_logger().info('********Receive Gesture************')
         twist = Twist()
             
         twist.linear.x = 0.0; twist.linear.y = 0.0; twist.linear.z = 0.0
