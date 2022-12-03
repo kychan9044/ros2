@@ -23,6 +23,7 @@ cfg.MODEL.DEVICE='cpu'
 cfg.MODEL.WEIGHTS = "./model_final.pth"  # path to the model we just trained
 cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7   # set a custom testing threshold
 predictor = DefaultPredictor(cfg)
+print("=================Finish Init========================")
 
 def detect_gesture(img,id):
     outputs = predictor(img)
