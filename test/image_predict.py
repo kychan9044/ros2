@@ -16,7 +16,7 @@ def detect_gesture():
     cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
     # cfg.DATASETS.TRAIN = ("mdata1_train",)
     cfg.DATASETS.TEST = ("mdata1_val",)
-    test_metadata = MetadataCatalog.get("mdata1_val").set(thing_classes=["palm", "punch", "one", "two"])
+    test_metadata = MetadataCatalog.get("mdata1_val").set(thing_classes=["one","palm", "punch", "one"])
     # cfg.DATALOADER.NUM_WORKERS = 2
     cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")  # Let training initialize from model zoo
     # cfg.SOLVER.IMS_PER_BATCH = 2
