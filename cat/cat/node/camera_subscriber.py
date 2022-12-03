@@ -22,7 +22,7 @@ class CameraSubscriber(Node):
         self.count = 0
 
     def listener_callback(self, data):
-        self.camera_flag_publisher.publish(False)
+        self.camera_flag_publisher.publish(Bool(False))
         self.get_logger().info('Received message')
         self.count+=1
         # Convert ROS Image message to OpenCV image 
@@ -33,7 +33,7 @@ class CameraSubscriber(Node):
         # cv2.imshow("img",current_frame)
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
-        self.camera_flag_publisher.publish(True)
+        self.camera_flag_publisher.publish(Bool(True))
 
 def main(args=None):
     rclpy.init(args=args)
