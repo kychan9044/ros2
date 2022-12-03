@@ -1,4 +1,5 @@
 from setuptools import setup
+import glob, os
 
 package_name = 'cat'
 
@@ -9,7 +10,8 @@ setup(
     data_files=[
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
-        ('share/' + package_name, ['package.xml'])
+        ('share/' + package_name, ['package.xml']),
+        ('share/' + 'train/', glob.glob(os.path.join('train', 'model_final.pth')))
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -23,7 +25,6 @@ setup(
             'camera_publisher = cat.node.camera_publisher:main',
             'camera_picture = cat.node.camera_picture:main',
             'camera_subscriber = cat.node.camera_subscriber:main',
-            'laser_scan = cat.node.laser_scan:main' ,
             'laser_subscriber = cat.node.laser_subscriber:main',
             'follower = cat.node.follower:main'
         ],
