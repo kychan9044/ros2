@@ -26,7 +26,6 @@ class Go(Node):
             'gesture',
             self.move,
             qos_profile)
-        self.move()
     
     def move(self,data):
         twist = Twist()
