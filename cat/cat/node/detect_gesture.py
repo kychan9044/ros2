@@ -26,7 +26,7 @@ predictor = DefaultPredictor(cfg)
 print("=================Finish Init========================")
 
 def detect_gesture(img,id):
-    print("1111111111")
+    cv2.imshow("before", img)
     outputs = predictor(img)
     print("222222222222")
     v = Visualizer(img[:,:,::-1], MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=1.2)
