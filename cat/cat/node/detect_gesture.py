@@ -26,7 +26,7 @@ class Gesture():
         self.cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7   # set a custom testing threshold
         self.predictor = DefaultPredictor(self.cfg)
 
-        MetadataCatalog.get("mdata4_val").set(thing_classes=["finger_1","finger_2","finger_3"])
+        MetadataCatalog.get("mdata4_train").set(thing_classes=["finger_1","finger_2","finger_3"])
         my_metadata = MetadataCatalog.get("mdata4_train")
         print("=================Finish Init========================")
 
@@ -41,3 +41,4 @@ class Gesture():
         print('==========',id,'============')
         print(outputs["instances"].pred_classes)
         print(outputs["instances"].pred_boxes)
+        return outputs["instances"].pred_classes

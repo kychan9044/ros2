@@ -21,6 +21,7 @@ class CameraSubscriber(Node):
         self.br = CvBridge()
         self.count = 0
         self.gesture = Gesture()
+        self.gesture_publisher = self.create_publisher(String, 'gesture', qos_profile)
 
     def listener_callback(self, data):
         msg = String()
@@ -30,7 +31,7 @@ class CameraSubscriber(Node):
         self.count+=1
         # Convert ROS Image message to OpenCV image 
         current_frame = self.br.imgmsg_to_cv2(data)
-        self.gesture.detect_gesture(current_frame,self.count)
+        result = self.gesture.detect_gesture(current_frame,self.count)
         # Display image 
         print('**************Finish detect****************')
         cv2.imwrite("img"+str(self.count)+".jpg", current_frame)
