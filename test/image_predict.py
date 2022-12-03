@@ -7,15 +7,15 @@ from detectron2.utils.visualizer import Visualizer
 from detectron2.data import MetadataCatalog, DatasetCatalog
 
 def detect_gesture():
-    dataset_name = 'mdata1_train'
-    if dataset_name in DatasetCatalog.list():
-        DatasetCatalog.remove(dataset_name)
-    if dataset_name in MetadataCatalog.list():
-        MetadataCatalog.remove(dataset_name)
+    # dataset_name = 'mdata1_train'
+    # if dataset_name in DatasetCatalog.list():
+    #     DatasetCatalog.remove(dataset_name)
+    # if dataset_name in MetadataCatalog.list():
+    #     MetadataCatalog.remove(dataset_name)
     cfg = get_cfg()
     cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
-    cfg.DATASETS.TRAIN = ("mdata1_train",)
-    cfg.DATASETS.TEST = ()
+    # cfg.DATASETS.TRAIN = ("mdata1_train",)
+    # cfg.DATASETS.TEST = ()
     cfg.DATALOADER.NUM_WORKERS = 2
     cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")  # Let training initialize from model zoo
     cfg.SOLVER.IMS_PER_BATCH = 2
