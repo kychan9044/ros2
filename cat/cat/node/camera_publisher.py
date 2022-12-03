@@ -19,12 +19,12 @@ class CameraPublisher(Node):
         self.camera_publisher = self.create_publisher(Image, 'camera', qos_profile)
         self.count = 0
 
-        self.cam = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)
+        self.cam = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L2)
         if self.cam.isOpened():
             self.get_logger().info("Camera open failed!")
             raise Exception("Camera open failed!")
         self.br = CvBridge()
-        self.publish_timer = self.create_timer(1, self.publish_images)
+        self.publish_timer = self.create_timer(2, self.publish_images)
     
     def publish_images(self):
         # while True:
