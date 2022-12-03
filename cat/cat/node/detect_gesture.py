@@ -8,6 +8,9 @@ import cv2
 
 class Gesture():
     def __init__(self):
+        dataset_name = 'mdata1_val'
+        if dataset_name in DatasetCatalog.list():
+            DatasetCatalog.remove(dataset_name)
         self.cfg = get_cfg()
         self.cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
         self.cfg.DATASETS.TRAIN = ("mdata1_train",)
@@ -28,6 +31,8 @@ class Gesture():
 
         MetadataCatalog.get("mdata1_train").set(thing_classes=["palm", "punch", "one", "two"])
         self.my_metadata = MetadataCatalog.get("mdata1_train")
+        MetadataCatalog.get("mdata1_val").set(thing_classes=["palm", "punch", "one", "two"])
+        self.my_metadata = MetadataCatalog.get("mdata1_val")
         print("=================Finish Init========================")
 
     def detect_gesture(self,img,id):
