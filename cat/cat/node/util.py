@@ -6,7 +6,7 @@ from detectron2.engine import DefaultPredictor
 from detectron2.utils.visualizer import Visualizer
 from detectron2.data import MetadataCatalog, DatasetCatalog
 
-def detect_gesture():
+def detect_gesture(img):
     cfg = get_cfg()
     cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
     cfg.DATASETS.TRAIN = ("mdata4_train",)
@@ -20,23 +20,16 @@ def detect_gesture():
     cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128   # faster, and good enough for this toy dataset (default: 512)
     cfg.MODEL.ROI_HEADS.NUM_CLASSES = 3  # only has one class (mount).
 
-    # os.makedirs(cfg.OUTPUT_DIR, exist_ok=True)
-    # trainer = DefaultTrainer(cfg) 
-    # trainer.resume_or_load(resume=False)
-    # trainer.train()
-
     cfg.MODEL.DEVICE='cpu'
     cfg.MODEL.WEIGHTS = "model_final.pth"  # path to the model we just trained
     cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7   # set a custom testing threshold
     predictor = DefaultPredictor(cfg)
 
-    im = cv2.imread('./images/image3.jpeg')
-    outputs = predictor(im)
+    outputs = predictor(img)
     # v = Visualizer(im[:,:,::-1], MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=1.2)
     # out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
     # cv2.imshow("image", out.get_image()[:, :, ::-1])
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
-    print(outputs)
     print(outputs["instances"].pred_classes)
     print(outputs["instances"].pred_boxes)

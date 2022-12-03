@@ -5,7 +5,7 @@ from std_msgs.msg import String
 from sensor_msgs.msg import Image
 import cv2
 from cv_bridge import CvBridge
-
+import util
 
 class CameraSubscriber(Node):
 
@@ -24,6 +24,7 @@ class CameraSubscriber(Node):
         
         # Convert ROS Image message to OpenCV image 
         current_frame = self.br.imgmsg_to_cv2(data)
+        util.detect_gesture()
         # Display image 
         # cv2.imwrite("img.jpg", current_frame)
         # cv2.imshow("img",current_frame)
