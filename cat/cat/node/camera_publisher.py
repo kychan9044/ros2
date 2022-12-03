@@ -1,7 +1,7 @@
 import rclpy 
 from rclpy.node import Node 
 from rclpy.qos import QoSProfile 
-from std_msgs.msg import String
+from std_msgs.msg import String, Bool
 import cv2
 # import picamera
 from cv_bridge import CvBridge
@@ -15,8 +15,14 @@ class CameraPublisher(Node):
     def __init__(self):
         super().__init__('camera_publisher') 
         self.get_logger().info('********init************')
+        self.flag = True
         qos_profile = QoSProfile(depth=10) 
-        self.camera_publisher = self.create_publisher(Image, 'camera', qos_profile)
+        self.camera_publisher = self.create_publisher(Image, 'camera_data', qos_profile)
+        self.camera_flag_subscriber = self.create_subscription(
+            Bool,
+            'camera_flag',
+            self.switch_camera_flag,
+            qos_profile)
         self.count = 0
 
         self.cam = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)
@@ -27,13 +33,20 @@ class CameraPublisher(Node):
         self.publish_timer = self.create_timer(3, self.publish_images)
     
     def publish_images(self):
-        self.get_logger().info('***********Published message***********')
+        if not True:
+            return
+
+        self.get_logger().info('***********Published image***********')
         ret, frame = self.cam.read()
         if not ret:
             self.get_logger().info('Image read failed!')
         else:
             # print((type(frame),frame))
             self.camera_publisher.publish(self.br.cv2_to_imgmsg(frame, encoding="bgr8"))
+
+    def switch_camera_flag(self, data):
+        self.get_logger().info('flag',str(data))
+        self.flag = data
 
 def main(args=None):
     rclpy.init(args=args)

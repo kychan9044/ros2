@@ -1,7 +1,7 @@
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSProfile
-from std_msgs.msg import String
+from std_msgs.msg import String, Bool
 from sensor_msgs.msg import Image
 import cv2
 from cv_bridge import CvBridge
@@ -11,12 +11,18 @@ class CameraSubscriber(Node):
 
     def __init__(self):
         super().__init__('Camera_subscrixber')
-        self.subscribe()
+        qos_profile = QoSProfile(depth=10)
+        self.camera_subscriber = self.create_subscription(
+            Image,
+            'camera_data',
+            self.listener_callback,
+            qos_profile)
+        self.camera_flag_publisher = self.create_publisher(Bool, 'camera_flag', qos_profile)
         self.br = CvBridge()
         self.count = 0
 
     def listener_callback(self, data):
-        self.camera_subscriber.destory()
+        self.camera_flag_publisher.publish(False)
         self.get_logger().info('Received message')
         self.count+=1
         # Convert ROS Image message to OpenCV image 
@@ -27,15 +33,7 @@ class CameraSubscriber(Node):
         # cv2.imshow("img",current_frame)
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
-        self.subscribe()
-
-    def subscribe(self):
-        qos_profile = QoSProfile(depth=10)
-        self.camera_subscriber = self.create_subscription(
-            Image,
-            'camera',
-            self.listener_callback,
-            qos_profile)
+        self.camera_flag_publisher.publish(True)
 
 def main(args=None):
     rclpy.init(args=args)
