@@ -27,13 +27,9 @@ print("=================Finish Init========================")
 
 def detect_gesture(img,id):
     outputs = predictor(img)
-    print("222222222222")
     v = Visualizer(img[:,:,::-1], MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=1.2)
-    print("3333333333333")
     out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
-    print("44444444444444")
     cv2.imshow("image", out.get_image()[:, :, ::-1])
-    print("555555555555555")
     cv2.waitKey(0)
     cv2.destroyAllWindows()
     print('==========',id,'============')
