@@ -19,7 +19,7 @@ class CameraPublisher(Node):
         self.camera_publisher = self.create_publisher(Image, 'camera', qos_profile)
         self.count = 0
 
-        self.cam = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)
+        self.cam = cv2.VideoCapture('/dev/video1', cv2.CAP_V4L)
         if not self.cam.isOpened():
             self.get_logger().info("Camera open failed!")
             raise Exception("Camera open failed!")
@@ -27,22 +27,12 @@ class CameraPublisher(Node):
         self.publish_timer = self.create_timer(2, self.publish_images)
     
     def publish_images(self):
-        # while True:
         self.get_logger().info('***********Published message***********')
-        # try:
-        #     msg = self.capture_queue.get(block=True, timeout=2)
-        # except queue.Empty:
-        #     msg = None
-        # if msg != None:
-        #     self.get_logger().debug('CAM: sending frame. frame=%s'
-        #                         % (msg.header.frame_id) )
-        #     self.publisher.publish(msg)
-        # img = cv2.imread('camera.jpg')
         ret, frame = self.cam.read()
         if not ret:
             self.get_logger().info('Image read failed!')
         else:
-            print((type(frame),frame))
+            # print((type(frame),frame))
             self.camera_publisher.publish(self.br.cv2_to_imgmsg(frame, encoding="bgr8"))
 
 def main(args=None):
