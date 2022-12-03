@@ -26,6 +26,9 @@ class CameraSubscriber(Node):
         current_frame = self.br.imgmsg_to_cv2(data)
         # Display image 
         cv2.imwrite("img.jpg", current_frame)
+        cv2.imshow("img",current_frame)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
 
     def subscribe_topic_message(self, msg):
         self.get_logger().info('Received message: {0}'.format(msg.data))

@@ -10,7 +10,6 @@ import time
 # import queue
 import os
 
-
 class CameraPublisher(Node): 
 
     def __init__(self):
@@ -25,20 +24,19 @@ class CameraPublisher(Node):
         self.publish_timer = self.create_timer(1, self.publish_images)
     
     def publish_images(self):
-        while True:
-            self.get_logger().info('***********Published message***********')
-            # try:
-            #     msg = self.capture_queue.get(block=True, timeout=2)
-            # except queue.Empty:
-            #     msg = None
-            # if msg != None:
-            #     self.get_logger().debug('CAM: sending frame. frame=%s'
-            #                         % (msg.header.frame_id) )
-            #     self.publisher.publish(msg)
-            img = cv2.imread('camera.jpg')
-            self.camera_publisher.publish(self.br.cv2_to_imgmsg(img, encoding="bgr8"))
-            time.sleep(3)
-
+        # while True:
+        self.get_logger().info('***********Published message***********')
+        # try:
+        #     msg = self.capture_queue.get(block=True, timeout=2)
+        # except queue.Empty:
+        #     msg = None
+        # if msg != None:
+        #     self.get_logger().debug('CAM: sending frame. frame=%s'
+        #                         % (msg.header.frame_id) )
+        #     self.publisher.publish(msg)
+        img = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L) # CAP_V4L 또는 CAP_V4L2 설정 (리눅스 환경에서의 video)
+        # img = cv2.imread('camera.jpg')
+        self.camera_publisher.publish(self.br.cv2_to_imgmsg(img, encoding="bgr8"))
 
 def main(args=None):
     rclpy.init(args=args)
