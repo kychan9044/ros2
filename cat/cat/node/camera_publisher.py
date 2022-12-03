@@ -33,7 +33,7 @@ class CameraPublisher(Node):
         self.publish_timer = self.create_timer(3, self.publish_images)
     
     def publish_images(self):
-        if not True:
+        if not self.flag:
             return
 
         self.get_logger().info('***********Published image***********')
