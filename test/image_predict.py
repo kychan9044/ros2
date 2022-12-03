@@ -24,18 +24,18 @@ def detect_gesture():
     # trainer = DefaultTrainer(cfg) 
     # trainer.resume_or_load(resume=False)
     # trainer.train()
-    MetadataCatalog.get("mdata4_val").set(thing_classes=["finger_1","finger_2","finger_3"])
-    my_metadata = MetadataCatalog.get("mdata4_val")
+    MetadataCatalog.get("mdata4_train").set(thing_classes=["finger_1","finger_2","finger_3"])
+    my_metadata = MetadataCatalog.get("mdata4_train")
 
     cfg.MODEL.DEVICE='cpu'
     cfg.MODEL.WEIGHTS = "model_final_3.pth"  # path to the model we just trained
     cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7   # set a custom testing threshold
     predictor = DefaultPredictor(cfg)
 
-    im = cv2.imread('./images/outcome/outcome18.jpg')
+    im = cv2.imread('./images/outcome/outcome16.jpg')
     outputs = predictor(im)
-    # v = Visualizer(im[:,:,::-1], MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=1.2)
-    v = Visualizer(im[:,:,::-1], metadata=my_metadata, scale=1.2)
+    v = Visualizer(im[:,:,::-1], MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=1.2)
+    # v = Visualizer(im[:,:,::-1], metadata=my_metadata, scale=1.2)
     out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
     cv2.imshow("image", out.get_image()[:, :, ::-1])
     cv2.waitKey(0)
