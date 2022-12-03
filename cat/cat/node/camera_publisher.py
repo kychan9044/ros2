@@ -45,7 +45,7 @@ class CameraPublisher(Node):
             self.camera_publisher.publish(self.br.cv2_to_imgmsg(frame, encoding="bgr8"))
 
     def switch_camera_flag(self, data):
-        self.get_logger().info('flag',str(data))
+        self.get_logger().info('flag'+str(data))
         self.flag = data
 
 def main(args=None):
