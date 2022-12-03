@@ -17,7 +17,7 @@ cfg.SOLVER.BASE_LR = 0.00025  # pick a good LR
 cfg.SOLVER.MAX_ITER = 1000    # 300 iterations seems good enough for this toy dataset; you will need to train longer for a practical dataset
 cfg.SOLVER.STEPS = []        # do not decay learning rate
 cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128   # faster, and good enough for this toy dataset (default: 512)
-cfg.MODEL.ROI_HEADS.NUM_CLASSES = 3  # only has one class (mount).
+cfg.MODEL.ROI_HEADS.NUM_CLASSES = 4  # only has one class (mount).
 
 cfg.MODEL.DEVICE='cpu'
 cfg.MODEL.WEIGHTS = "./model_final.pth"  # path to the model we just trained
