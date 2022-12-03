@@ -9,7 +9,7 @@ from detectron2.data import MetadataCatalog, DatasetCatalog
 def detect_gesture():
     cfg = get_cfg()
     cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
-    cfg.DATASETS.TRAIN = ("mdata16_train",)
+    cfg.DATASETS.TRAIN = ("mdata1_train",)
     cfg.DATASETS.TEST = ()
     cfg.DATALOADER.NUM_WORKERS = 2
     cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")  # Let training initialize from model zoo
@@ -24,8 +24,8 @@ def detect_gesture():
     # trainer = DefaultTrainer(cfg) 
     # trainer.resume_or_load(resume=False)
     # trainer.train()
-    MetadataCatalog.get("mdata16_train").set(thing_classes=["palm", "punch", "one", "two"])
-    my_metadata = MetadataCatalog.get("mdata16_train")
+    MetadataCatalog.get("mdata1_train").set(thing_classes=["palm", "punch", "one", "two"])
+    my_metadata = MetadataCatalog.get("mdata1_train")
 
     cfg.MODEL.DEVICE='cpu'
     cfg.MODEL.WEIGHTS = "model_final.pth"  # path to the model we just trained
