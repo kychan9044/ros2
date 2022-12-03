@@ -28,7 +28,7 @@ def detect_gesture():
     my_metadata = MetadataCatalog.get("mdata4_train")
 
     cfg.MODEL.DEVICE='cpu'
-    cfg.MODEL.WEIGHTS = "model_final.pth"  # path to the model we just trained
+    cfg.MODEL.WEIGHTS = "model_final_3.pth"  # path to the model we just trained
     cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7   # set a custom testing threshold
     predictor = DefaultPredictor(cfg)
 
