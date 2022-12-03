@@ -17,7 +17,7 @@ class CameraSubscriber(Node):
             'camera_data',
             self.listener_callback,
             qos_profile)
-        self.camera_flag_publisher = self.create_publisher(Bool, 'camera_flag', qos_profile)
+        self.camera_flag_publisher = self.create_publisher(String, 'camera_flag', qos_profile)
         self.br = CvBridge()
         self.count = 0
 
