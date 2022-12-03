@@ -19,7 +19,7 @@ class Gesture():
         self.cfg.SOLVER.MAX_ITER = 1000    # 300 iterations seems good enough for this toy dataset; you will need to train longer for a practical dataset
         self.cfg.SOLVER.STEPS = []        # do not decay learning rate
         self.cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128   # faster, and good enough for this toy dataset (default: 512)
-        self.cfg.MODEL.ROI_HEADS.NUM_CLASSES = 3  # only has one class (mount).
+        self.cfg.MODEL.ROI_HEADS.NUM_CLASSES = 4  # only has one class (mount).
 
         self.cfg.MODEL.DEVICE='cpu'
         self.cfg.MODEL.WEIGHTS = "./model_final.pth"  # path to the model we just trained
