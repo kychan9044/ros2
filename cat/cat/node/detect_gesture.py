@@ -27,7 +27,7 @@ class Gesture():
         self.predictor = DefaultPredictor(self.cfg)
 
         MetadataCatalog.get("mdata4_train").set(thing_classes=["finger_1","finger_2","finger_3"])
-        my_metadata = MetadataCatalog.get("mdata4_train")
+        self.my_metadata = MetadataCatalog.get("mdata4_train")
         print("=================Finish Init========================")
 
     def detect_gesture(self,img,id):
