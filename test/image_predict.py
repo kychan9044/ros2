@@ -12,11 +12,6 @@ def detect_gesture():
         DatasetCatalog.remove(dataset_name)
     if dataset_name in MetadataCatalog.list():
         MetadataCatalog.remove(dataset_name)
-    dataset_name = 'mdata1_val'
-    if dataset_name in DatasetCatalog.list():
-        DatasetCatalog.remove(dataset_name)
-    if dataset_name in MetadataCatalog.list():
-        MetadataCatalog.remove(dataset_name)
     cfg = get_cfg()
     cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
     cfg.DATASETS.TRAIN = ("mdata1_train",)
@@ -35,7 +30,6 @@ def detect_gesture():
     # trainer.resume_or_load(resume=False)
     # trainer.train()
     MetadataCatalog.get("mdata1_train").set(thing_classes=["palm", "punch", "one", "two"])
-    MetadataCatalog.get("mdata1_val").set(thing_classes=["palm", "punch", "one", "two"])
 
     cfg.MODEL.DEVICE='cpu'
     cfg.MODEL.WEIGHTS = "model_final.pth"  # path to the model we just trained
