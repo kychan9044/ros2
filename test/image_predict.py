@@ -15,7 +15,7 @@ def detect_gesture():
     cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")  # Let training initialize from model zoo
     cfg.SOLVER.IMS_PER_BATCH = 2
     cfg.SOLVER.BASE_LR = 0.00025  # pick a good LR
-    cfg.SOLVER.MAX_ITER = 300    # 300 iterations seems good enough for this toy dataset; you will need to train longer for a practical dataset
+    cfg.SOLVER.MAX_ITER = 1000    # 300 iterations seems good enough for this toy dataset; you will need to train longer for a practical dataset
     cfg.SOLVER.STEPS = []        # do not decay learning rate
     cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128   # faster, and good enough for this toy dataset (default: 512)
     cfg.MODEL.ROI_HEADS.NUM_CLASSES = 4  # only has one class (mount).
@@ -24,7 +24,6 @@ def detect_gesture():
     # trainer = DefaultTrainer(cfg) 
     # trainer.resume_or_load(resume=False)
     # trainer.train()
-    # MetadataCatalog.get("mdata16_train").set(thing_classes=["finger_1","finger_2","finger_3"])
     MetadataCatalog.get("mdata16_train").set(thing_classes=["palm", "punch", "one", "two"])
     my_metadata = MetadataCatalog.get("mdata16_train")
 
