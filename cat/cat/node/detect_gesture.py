@@ -25,6 +25,9 @@ class Gesture():
         self.cfg.MODEL.WEIGHTS = "./model_final.pth"  # path to the model we just trained
         self.cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7   # set a custom testing threshold
         self.predictor = DefaultPredictor(self.cfg)
+
+        MetadataCatalog.get("mdata4_val").set(thing_classes=["finger_1","finger_2","finger_3"])
+        my_metadata = MetadataCatalog.get("mdata4_train")
         print("=================Finish Init========================")
 
     def detect_gesture(self,img,id):
