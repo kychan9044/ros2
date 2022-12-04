@@ -41,7 +41,6 @@ class CameraPublisher(Node):
         if not ret:
             self.get_logger().info('Image read failed!')
         else:
-            # print((type(frame),frame))
             self.camera_publisher.publish(self.br.cv2_to_imgmsg(frame, encoding="bgr8"))
 
     def switch_flag(self, data):
