@@ -40,7 +40,7 @@ class Go(Node):
             twist.angular.z = 0.3
             self.pub.publish(twist)
             
-            time.sleep(3)
+            time.sleep(2)
             
             self.stop()
             
@@ -49,7 +49,7 @@ class Go(Node):
             twist.angular.z = 0.0
             self.pub.publish(twist)
 
-            time.sleep(3)
+            time.sleep(2)
             
             self.stop()
 
@@ -58,7 +58,7 @@ class Go(Node):
             twist.angular.z = -0.3
             self.pub.publish(twist)
 
-            time.sleep(3)
+            time.sleep(2)
             
             self.stop()
 
