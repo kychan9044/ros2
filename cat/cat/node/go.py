@@ -40,33 +40,27 @@ class Go(Node):
             twist.angular.z = 0.3
             self.pub.publish(twist)
             
-            time.sleep(2)
+            time.sleep(3)
             
-            twist.linear.x = 0.0
-            twist.angular.z = 0.0
-            self.pub.publish(twist)
+            self.stop()
             
         elif data.data == "punch" or data.data == "palm": # 직진
             twist.linear.x = 0.2
             twist.angular.z = 0.0
             self.pub.publish(twist)
 
-            time.sleep(2)
+            time.sleep(5)
             
-            twist.linear.x = 0.0
-            twist.angular.z = 0.0
-            self.pub.publish(twist)
+            self.stop()
 
         elif data.data == "two": # 좌회전
             twist.linear.x = 0.2
             twist.angular.z = -0.3
             self.pub.publish(twist)
 
-            time.sleep(2)
+            time.sleep(5)
             
-            twist.linear.x = 0.0
-            twist.angular.z = 0.0
-            self.pub.publish(twist)
+            self.stop()
 
     def stop(self):
         twist = Twist()
@@ -74,6 +68,7 @@ class Go(Node):
         twist.linear.x = 0.0; twist.linear.y = 0.0; twist.linear.z = 0.0
         twist.angular.x = 0.0; twist.angular.y = 0.0; twist.angular.z = 0.0
         self.pub.publish(twist)
+
 
 def main(args=None):
     rclpy.init(args=args)
