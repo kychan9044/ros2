@@ -67,8 +67,6 @@ class Go(Node):
             twist.linear.x = 0.0
             twist.angular.z = 0.0
             self.pub.publish(twist)
-        
-        self.is_working = False
 
 def main(args=None):
     rclpy.init(args=args)
