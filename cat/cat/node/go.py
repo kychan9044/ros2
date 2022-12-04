@@ -40,18 +40,18 @@ class Go(Node):
             twist.angular.z = 0.3
             self.pub.publish(twist)
             
-            time.sleep(5)
+            time.sleep(1)
             
             twist.linear.x = 0.0
             twist.angular.z = 0.0
             self.pub.publish(twist)
             
-        elif data.data == "punch": # 직진
+        elif data.data == "punch" or data.data == "palm": # 직진
             twist.linear.x = 0.2
             twist.angular.z = 0.0
             self.pub.publish(twist)
 
-            time.sleep(5)
+            time.sleep(1)
             
             twist.linear.x = 0.0
             twist.angular.z = 0.0
@@ -62,7 +62,7 @@ class Go(Node):
             twist.angular.z = -0.3
             self.pub.publish(twist)
 
-            time.sleep(5)
+            time.sleep(1)
             
             twist.linear.x = 0.0
             twist.angular.z = 0.0
