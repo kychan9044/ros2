@@ -24,9 +24,9 @@ class CameraSubscriber(Node):
         self.gesture_publisher = self.create_publisher(String, 'gesture', qos_profile)
 
     def listener_callback(self, data):
-        # msg = String()
-        # msg.data = "Disable"
-        # self.camera_flag_publisher.publish(msg)
+        msg = String()
+        msg.data = "Disable"
+        self.camera_flag_publisher.publish(msg)
         self.get_logger().info('Received message')
         self.count+=1
         # Convert ROS Image message to OpenCV image 
@@ -38,8 +38,8 @@ class CameraSubscriber(Node):
         if not result[0] == None:
             msg.data = result[0]
             self.gesture_publisher.publish(msg)
-        # msg.data = "Enable"
-        # self.camera_flag_publisher.publish(msg)
+        msg.data = "Enable"
+        self.camera_flag_publisher.publish(msg)
 
 def main(args=None):
     rclpy.init(args=args)
