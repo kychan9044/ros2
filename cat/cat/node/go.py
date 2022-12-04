@@ -26,8 +26,16 @@ class Go(Node):
             'gesture',
             self.move,
             qos_profile)
+        self.flag_subscriber = self.create_subscription(
+            String,
+            'working_flag',
+            self.switch_camera_flag,
+            qos_profile)
     
     def move(self,data):
+        if self.flag == "Disable":
+            return
+            
         self.get_logger().info('********Receive Gesture************')
         twist = Twist()
             
@@ -46,7 +54,6 @@ class Go(Node):
             twist.angular.z = 0.0
             self.pub.publish(twist)
             
-
         elif data.data == "punch": # 직진
             twist.linear.x = 0.2
             twist.angular.z = 0.0
@@ -58,8 +65,6 @@ class Go(Node):
             twist.angular.z = 0.0
             self.pub.publish(twist)
 
-
-
         elif data.data == "two": # 좌회전
             twist.linear.x = 0.2
             twist.angular.z = -0.3
@@ -70,6 +75,10 @@ class Go(Node):
             twist.linear.x = 0.0
             twist.angular.z = 0.0
             self.pub.publish(twist)
+
+    def switch_flag(self, data):
+        self.get_logger().info('Switch message: {0}'.format(data.data))
+        self.flag = data.data
 
 
 def main(args=None):

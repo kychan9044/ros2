@@ -18,9 +18,9 @@ class CameraPublisher(Node):
         self.flag = "Enable"
         qos_profile = QoSProfile(depth=10) 
         self.camera_publisher = self.create_publisher(Image, 'camera_data', qos_profile)
-        self.camera_flag_subscriber = self.create_subscription(
+        self.flag_subscriber = self.create_subscription(
             String,
-            'camera_flag',
+            'working_flag',
             self.switch_camera_flag,
             qos_profile)
         self.count = 0
@@ -30,7 +30,7 @@ class CameraPublisher(Node):
             self.get_logger().info("Camera open failed!")
             raise Exception("Camera open failed!")
         self.br = CvBridge()
-        self.publish_timer = self.create_timer(3, self.publish_images)
+        self.publish_timer = self.create_timer(1, self.publish_images)
     
     def publish_images(self):
         if self.flag == "Disable":
@@ -44,7 +44,7 @@ class CameraPublisher(Node):
             # print((type(frame),frame))
             self.camera_publisher.publish(self.br.cv2_to_imgmsg(frame, encoding="bgr8"))
 
-    def switch_camera_flag(self, data):
+    def switch_flag(self, data):
         self.get_logger().info('Switch message: {0}'.format(data.data))
         self.flag = data.data
 

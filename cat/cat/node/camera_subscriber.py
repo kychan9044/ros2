@@ -17,7 +17,7 @@ class CameraSubscriber(Node):
             'camera_data',
             self.listener_callback,
             qos_profile)
-        self.camera_flag_publisher = self.create_publisher(String, 'camera_flag', qos_profile)
+        self.camera_flag_publisher = self.create_publisher(String, 'working_flag', qos_profile)
         self.br = CvBridge()
         self.count = 0
         self.gesture = Gesture()
@@ -38,9 +38,6 @@ class CameraSubscriber(Node):
         if not result[0] == None:
             msg.data = result[0]
             self.gesture_publisher.publish(msg)
-        # cv2.imshow("img"+str(self.count),current_frame)
-        # cv2.waitKey(0)
-        # cv2.destroyAllWindows()
         msg.data = "Enable"
         self.camera_flag_publisher.publish(msg)
 
