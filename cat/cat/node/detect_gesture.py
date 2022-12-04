@@ -19,14 +19,14 @@ class Gesture():
         cfg.MODEL.ROI_HEADS.NUM_CLASSES = 4
         cfg.MODEL.DEVICE='cpu'
         cfg.MODEL.WEIGHTS = "model_final.pth"  # path to the model we just trained
-        cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5   # set a custom testing threshold
+        cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7   # set a custom testing threshold
         self.predictor = DefaultPredictor(cfg)
         print("=================Finish Init========================")
 
     def detect_gesture(self,img,id):
         outputs = self.predictor(img)
-        v = Visualizer(img[:,:,::-1], metadata=self.metadata_train, scale=1.2)
-        out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
+        # v = Visualizer(img[:,:,::-1], metadata=self.metadata_train, scale=1.2)
+        # out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
         # cv2.imwrite("outcome"+str(id)+".jpg", out.get_image()[:, :, ::-1])
         print('==========',id,'============')
         print(outputs["instances"].pred_classes)
