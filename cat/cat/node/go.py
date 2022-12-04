@@ -26,16 +26,13 @@ class Go(Node):
             'gesture',
             self.move,
             qos_profile)
-        self.flag_subscriber = self.create_subscription(
-            String,
-            'working_flag',
-            self.switch_flag,
-            qos_profile)
+        self.is_working = False
     
     def move(self,data):
-        if self.flag == "Disable":
+        if self.is_working :
             return
-
+        
+        self.is_working = True
         self.get_logger().info('********Receive Gesture************')
         twist = Twist()
             
@@ -75,11 +72,8 @@ class Go(Node):
             twist.linear.x = 0.0
             twist.angular.z = 0.0
             self.pub.publish(twist)
-
-    def switch_flag(self, data):
-        self.get_logger().info('Switch message: {0}'.format(data.data))
-        self.flag = data.data
-
+        
+        self.is_working = False
 
 def main(args=None):
     rclpy.init(args=args)
