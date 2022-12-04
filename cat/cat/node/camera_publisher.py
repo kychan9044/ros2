@@ -16,7 +16,7 @@ class CameraPublisher(Node):
         super().__init__('camera_publisher') 
         self.get_logger().info('********init************')
         self.flag = "Enable"
-        qos_profile = QoSProfile(depth=10) 
+        qos_profile = QoSProfile(depth=1) 
         self.camera_publisher = self.create_publisher(Image, 'camera_data', qos_profile)
         self.flag_subscriber = self.create_subscription(
             String,
