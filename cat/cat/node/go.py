@@ -25,7 +25,7 @@ class Go(Node):
             String,
             'gesture',
             self.move,
-            0)
+            qos_profile)
     
     def move(self,data):
         self.get_logger().info('********Receive Gesture************')
