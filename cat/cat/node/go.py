@@ -40,7 +40,7 @@ class Go(Node):
             twist.angular.z = 0.3
             self.pub.publish(twist)
             
-            time.sleep(1)
+            time.sleep(2)
             
             twist.linear.x = 0.0
             twist.angular.z = 0.0
@@ -51,7 +51,7 @@ class Go(Node):
             twist.angular.z = 0.0
             self.pub.publish(twist)
 
-            time.sleep(1)
+            time.sleep(2)
             
             twist.linear.x = 0.0
             twist.angular.z = 0.0
@@ -62,11 +62,18 @@ class Go(Node):
             twist.angular.z = -0.3
             self.pub.publish(twist)
 
-            time.sleep(1)
+            time.sleep(2)
             
             twist.linear.x = 0.0
             twist.angular.z = 0.0
             self.pub.publish(twist)
+
+    def stop(self):
+        twist = Twist()
+            
+        twist.linear.x = 0.0; twist.linear.y = 0.0; twist.linear.z = 0.0
+        twist.angular.x = 0.0; twist.angular.y = 0.0; twist.angular.z = 0.0
+        self.pub.publish(twist)
 
 def main(args=None):
     rclpy.init(args=args)
