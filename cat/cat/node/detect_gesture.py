@@ -32,6 +32,12 @@ class Gesture():
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
         print('==========',id,'============')
-        print(outputs["instances"].pred_classes)
+        print(outputs["instances"].pred_classes[0])
         print(outputs["instances"].pred_boxes)
+
+        for idx, coordinates in enumerate(outputs["instances"].pred_boxes):
+            class_index = outputs["instances"].pred_classes[idx]
+            class_name = self.metadata_train.thing_classes[class_index]
+            print(class_name, coordinates)
+
         return outputs["instances"].pred_classes
