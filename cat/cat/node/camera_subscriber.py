@@ -16,12 +16,12 @@ class CameraSubscriber(Node):
             Image,
             'camera_data',
             self.listener_callback,
-            0)
-        self.camera_flag_publisher = self.create_publisher(String, 'working_flag', 0)
+            qos_profile)
+        self.camera_flag_publisher = self.create_publisher(String, 'working_flag', qos_profile)
         self.br = CvBridge()
         self.count = 0
         self.gesture = Gesture()
-        self.gesture_publisher = self.create_publisher(String, 'gesture', 0)
+        self.gesture_publisher = self.create_publisher(String, 'gesture', qos_profile)
 
     def listener_callback(self, data):
         msg = String()
