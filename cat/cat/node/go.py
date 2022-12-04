@@ -26,13 +26,8 @@ class Go(Node):
             'gesture',
             self.move,
             0)
-        self.is_working = False
     
     def move(self,data):
-        if self.is_working :
-            return
-        
-        self.is_working = True
         self.get_logger().info('********Receive Gesture************')
         twist = Twist()
             
