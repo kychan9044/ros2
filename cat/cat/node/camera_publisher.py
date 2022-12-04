@@ -30,7 +30,7 @@ class CameraPublisher(Node):
             self.get_logger().info("Camera open failed!")
             raise Exception("Camera open failed!")
         self.br = CvBridge()
-        self.publish_timer = self.create_timer(5, self.publish_images)
+        self.publish_timer = self.create_timer(1, self.publish_images)
     
     def publish_images(self):
         if self.flag == "Disable":

@@ -11,7 +11,7 @@ class CameraSubscriber(Node):
 
     def __init__(self):
         super().__init__('Camera_subscrixber')
-        qos_profile = QoSProfile(depth=10)
+        qos_profile = QoSProfile(depth=1)
         self.camera_subscriber = self.create_subscription(
             Image,
             'camera_data',
