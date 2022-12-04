@@ -27,6 +27,7 @@ class CameraSubscriber(Node):
         msg = String()
         msg.data = "Disable"
         self.camera_flag_publisher.publish(msg)
+        cv2.imwrite("img"+str(self.count)+".jpg", current_frame)
         self.get_logger().info('Received message')
         self.count+=1
         # Convert ROS Image message to OpenCV image 
@@ -34,7 +35,7 @@ class CameraSubscriber(Node):
         result = self.gesture.detect_gesture(current_frame,self.count)
         # Display image 
         print('**************Finish detect****************')
-        # cv2.imwrite("img"+str(self.count)+".jpg", current_frame)
+        
         if not result[0] == None:
             msg.data = result[0]
             self.gesture_publisher.publish(msg)
