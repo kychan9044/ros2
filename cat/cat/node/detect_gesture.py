@@ -35,9 +35,12 @@ class Gesture():
         print(outputs["instances"].pred_classes)
         print(outputs["instances"].pred_boxes)
 
+        class_index = None
+        class_name = None
+
         for idx, coordinates in enumerate(outputs["instances"].pred_boxes):
             class_index = outputs["instances"].pred_classes[idx]
             class_name = self.metadata_train.thing_classes[class_index]
-            print(class_name, coordinates)
+        return (class_name, class_index)
 
-        return outputs["instances"].pred_classes
+        # return outputs["instances"].pred_classes
