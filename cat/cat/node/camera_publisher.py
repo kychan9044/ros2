@@ -21,7 +21,7 @@ class CameraPublisher(Node):
         self.flag_subscriber = self.create_subscription(
             String,
             'working_flag',
-            self.switch_camera_flag,
+            self.switch_flag,
             qos_profile)
         self.count = 0
 

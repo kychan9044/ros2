@@ -29,13 +29,13 @@ class Go(Node):
         self.flag_subscriber = self.create_subscription(
             String,
             'working_flag',
-            self.switch_camera_flag,
+            self.switch_flag,
             qos_profile)
     
     def move(self,data):
         if self.flag == "Disable":
             return
-            
+
         self.get_logger().info('********Receive Gesture************')
         twist = Twist()
             
