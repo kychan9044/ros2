@@ -32,7 +32,7 @@ class Gesture():
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
         print('==========',id,'============')
-        print(outputs["instances"].pred_classes[0])
+        print(outputs["instances"].pred_classes)
         print(outputs["instances"].pred_boxes)
 
         for idx, coordinates in enumerate(outputs["instances"].pred_boxes):
