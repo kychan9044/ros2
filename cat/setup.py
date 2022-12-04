@@ -23,9 +23,7 @@ setup(
     entry_points={
         'console_scripts': [
             'camera_publisher = cat.node.camera_publisher:main',
-            'camera_picture = cat.node.camera_picture:main',
             'camera_subscriber = cat.node.camera_subscriber:main',
-            'laser_subscriber = cat.node.laser_subscriber:main',
             'go = cat.node.go:main'
         ],
     },

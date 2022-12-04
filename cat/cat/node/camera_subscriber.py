@@ -31,7 +31,7 @@ class CameraSubscriber(Node):
         self.count+=1
         # Convert ROS Image message to OpenCV image 
         current_frame = self.br.imgmsg_to_cv2(data)
-        cv2.imwrite("img"+str(self.count)+".jpg", current_frame)
+        # cv2.imwrite("img"+str(self.count)+".jpg", current_frame)
         result = self.gesture.detect_gesture(current_frame,self.count)
         # Display image 
         print('**************Finish detect****************')
