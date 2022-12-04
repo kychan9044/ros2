@@ -36,8 +36,8 @@ class Go(Node):
         
         self.get_logger().info('gesture:{0}'.format(data.data))
         if data.data == "one": # 우회전
-            twist.linear.x = 0.2
-            twist.angular.z = 0.3
+            twist.linear.x = 0.1
+            twist.angular.z = 0.5
             self.pub.publish(twist)
             
             time.sleep(2)
@@ -54,8 +54,8 @@ class Go(Node):
             self.stop()
 
         elif data.data == "two": # 좌회전
-            twist.linear.x = 0.2
-            twist.angular.z = -0.3
+            twist.linear.x = 0.1
+            twist.angular.z = -0.5
             self.pub.publish(twist)
 
             time.sleep(2)
