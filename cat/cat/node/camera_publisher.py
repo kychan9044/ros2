@@ -17,12 +17,12 @@ class CameraPublisher(Node):
         self.get_logger().info('********init************')
         self.flag = "Enable"
         qos_profile = QoSProfile(depth=1) 
-        self.camera_publisher = self.create_publisher(Image, 'camera_data', qos_profile)
+        self.camera_publisher = self.create_publisher(Image, 'camera_data', 0)
         self.flag_subscriber = self.create_subscription(
             String,
             'working_flag',
             self.switch_flag,
-            qos_profile)
+            0)
         self.count = 0
 
         self.cam = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)

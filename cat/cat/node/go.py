@@ -19,13 +19,13 @@ class Go(Node):
         self.control_angular_vel = 0.0
         """
         self.get_logger().info('********init************')
-        qos_profile = QoSProfile(depth=10) 
+        qos_profile = QoSProfile(depth=1) 
         self.pub = self.create_publisher(Twist, 'cmd_vel', 10)
         self.camera_subscriber = self.create_subscription(
             String,
             'gesture',
             self.move,
-            qos_profile)
+            0)
         self.is_working = False
     
     def move(self,data):
