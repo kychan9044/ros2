@@ -13,7 +13,7 @@ class Gesture():
         cfg.DATASETS.TRAIN = ("mdata1_train",)
         # cfg.DATASETS.TEST = ("mdata1_val",)
         # self.test_metadata = MetadataCatalog.get("mdata1_val").set(thing_classes=["palm", "punch", "one","two"])
-        MetadataCatalog.get("mdata1_train").set(thing_classes=["palm", "punch", "one", "two"])
+        self.metadata_train = MetadataCatalog.get("mdata1_train").set(thing_classes=["palm", "punch", "one", "two"])
         cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml")  # Let training initialize from model zoo
 
         cfg.MODEL.ROI_HEADS.NUM_CLASSES = 4
@@ -25,7 +25,7 @@ class Gesture():
 
     def detect_gesture(self,img,id):
         outputs = self.predictor(img)
-        v = Visualizer(img[:,:,::-1], MetadataCatalog.get(self.cfg.DATASETS.TRAIN[0]), scale=1.2)
+        v = Visualizer(img[:,:,::-1], metadata=self.metadata_train, scale=1.2)
         out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
         cv2.imwrite("outcome"+str(id)+".jpg", out.get_image()[:, :, ::-1])
         # cv2.imshow("image", out.get_image()[:, :, ::-1])
