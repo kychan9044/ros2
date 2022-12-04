@@ -35,8 +35,9 @@ class CameraSubscriber(Node):
         # Display image 
         print('**************Finish detect****************')
         cv2.imwrite("img"+str(self.count)+".jpg", current_frame)
-        msg.data = result[0]
-        self.gesture_publisher.publish(msg)
+        if not result[0] == None:
+            msg.data = result[0]
+            self.gesture_publisher.publish(msg)
         # cv2.imshow("img"+str(self.count),current_frame)
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
