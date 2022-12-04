@@ -27,7 +27,7 @@ class Gesture():
         outputs = self.predictor(img)
         v = Visualizer(img[:,:,::-1], metadata=self.metadata_train, scale=1.2)
         out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
-        # cv2.imwrite("outcome"+str(id)+".jpg", out.get_image()[:, :, ::-1])
+        cv2.imwrite("outcome"+str(id)+".jpg", out.get_image()[:, :, ::-1])
         print('==========',id,'============')
         print(outputs["instances"].pred_classes)
         print(outputs["instances"].pred_boxes)
